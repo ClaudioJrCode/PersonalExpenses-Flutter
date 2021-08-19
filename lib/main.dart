@@ -6,7 +6,7 @@ import './models/transaction.dart';
 import 'components/chart.dart';
 import 'dart:math';
 import 'dart:io';
-import './components/adaptative_button.dart';
+
 
 main() => runApp(ExpensesApp());
 

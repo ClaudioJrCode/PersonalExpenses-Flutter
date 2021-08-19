@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 class AdaptativeButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
+  
+  
   AdaptativeButton(
     this.label,
     this.onPressed,
