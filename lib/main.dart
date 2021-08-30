@@ -7,7 +7,6 @@ import 'components/chart.dart';
 import 'dart:math';
 import 'dart:io';
 
-
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
@@ -17,7 +16,7 @@ class ExpensesApp extends StatelessWidget {
         home: MyHomePage(),
         theme: ThemeData(
             primarySwatch: Colors.deepPurple,
-            accentColor: Colors.purple[700],
+            accentColor: Colors.deepPurple[500],
             fontFamily: 'Quicksand'));
   }
 }
@@ -27,7 +26,28 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('oi');
+    super.didChangeAppLifecycleState(state);
+    print(state);
+  }
+
+  @override
+  void initState() {
+    print('init state oi');
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    print('dispose oi');
+    super.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
+  }
+
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -74,7 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final listIcon = Platform.isIOS ? CupertinoIcons.list_bullet : Icons.list;
-    final graphIcon = Platform.isIOS ? CupertinoIcons.graph_square : Icons.bar_chart;
+    final graphIcon =
+        Platform.isIOS ? CupertinoIcons.graph_square : Icons.bar_chart;
     bool isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     //Passando o AppBar para uma variavel para pegar o height para calcular a responsividade;
@@ -140,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             if (!_showGraph || !isLandscape)
               Container(
-                height: availableHeight * (isLandscape ? 1 : 0.6),
+                height: availableHeight * (isLandscape ? 1 : 0.7),
                 child: TransactionList(_transactions, _deleteTransaction),
               ),
           ],
